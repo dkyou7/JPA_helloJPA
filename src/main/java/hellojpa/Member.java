@@ -1,32 +1,38 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 // DB의 테이블 명이 다를경우
 // @Table(name = "USER")
 public class Member {
 
-    @Id
-    private Long id;
-    // DB의 컬럼 명이 다를 경우
-    // @Column(name = "USERNAME")
-    private String name;
+        @Id
+        private Long id;
 
-    public Long getId() {
-        return id;
-    }
+        @Column(name = "name", nullable = false)
+        private String username;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+        private Integer age;
 
-    public String getName() {
-        return name;
-    }
+        @Enumerated(EnumType.STRING)
+        private RoleType roleType;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date createdDate;
+
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date lastModifiedDate;
+
+        // 최신 버전인 경우 이렇게 하면 대체 가능하다.
+        // 굳이 어노테이션 붙일 필요 없음.
+        private LocalDate test1;
+        private LocalDateTime test2;
+
+        @Lob
+        private String description;
+        //Getter, Setter…
 }

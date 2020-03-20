@@ -8,8 +8,9 @@ import java.util.List;
 
 public class Mainjpa {
     public static void main(String[] args) {
+        // persistence.xml 에서 데이터베이스 정보를 불러온다.
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
-
+        // 공장을 바탕으로 매니저를 찍어낸다.
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         // code start
         EntityTransaction tx = entityManager.getTransaction();  // 트랜잭션 내부에서 쿼리를 실행해야 한다.
@@ -23,14 +24,14 @@ public class Mainjpa {
             // entityManager.persist(member);
             // 조회
             // Member findMember = entityManager.find(Member.class,1L);
-            List<Member> result = entityManager.createQuery("select m from Member as m",Member.class)
-                    .setFirstResult(1)  // 1번째부터 시작해서
-                    .setMaxResults(10)  // 10개 가져와라. 페이징 처리할 때 유용 (선택)
-                    .getResultList();
-
-            for(Member mem: result){
-                System.out.println("mem.getName() = " + mem.getName());
-            }
+//            List<Member> result = entityManager.createQuery("select m from Member as m",Member.class)
+//                    .setFirstResult(1)  // 1번째부터 시작해서
+//                    .setMaxResults(10)  // 10개 가져와라. 페이징 처리할 때 유용 (선택)
+//                    .getResultList();
+//
+//            for(Member mem: result){
+//                System.out.println("mem.getName() = " + mem.getName());
+//            }
             // System.out.println("findMember = " + findMember.getId());
             // System.out.println("findMember.id = " + findMember.getName());
 
