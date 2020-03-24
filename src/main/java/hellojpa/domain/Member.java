@@ -24,4 +24,9 @@ public class Member {
         @ManyToOne      // 관계가 뭐야.
         @JoinColumn(name = "TEAM_ID")   // 조인을 어떤걸로 할꺼야.
         private Team team;
+
+        public void changeTeam(Team team){
+                this.team = team;
+                team.getMembers().add(this);
+        }
 }

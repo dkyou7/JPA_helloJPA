@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Mainjpa {
     public static void main(String[] args) {
@@ -25,11 +26,18 @@ public class Mainjpa {
 
             Member member = new Member();
             member.setName("member1");
-            member.setTeam(team);
+            member.changeTeam(team);    // setTeam 보다 명확한 메서드 지정을 해준다.
             entityManager.persist(member);
+
+            entityManager.flush();
+            entityManager.clear();
 
             Member findMember = entityManager.find(Member.class, member.getId());
 //            Team findTeam = entityManager.find(Team.class, team.getId());
+            List<Member> members = findMember.getTeam().getMembers();
+            for(Member m : members){
+                System.out.println("m.getName() = " + m.getName());
+            }
             Team findMemberTeam = findMember.getTeam();
 
             tx.commit();        // 트랜잭션 실행
