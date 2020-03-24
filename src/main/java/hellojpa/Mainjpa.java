@@ -1,10 +1,12 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
+import hellojpa.domain.Team;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class Mainjpa {
     public static void main(String[] args) {
@@ -16,32 +18,20 @@ public class Mainjpa {
         EntityTransaction tx = entityManager.getTransaction();  // 트랜잭션 내부에서 쿼리를 실행해야 한다.
         tx.begin();         // 트랜잭션 시작
         try{
-            // 삽입
-            // Member member = new Member();
-            // member.setId(1L);
-            // member.setName("유동관");
 
-            // entityManager.persist(member);
-            // 조회
-            // Member findMember = entityManager.find(Member.class,1L);
-//            List<Member> result = entityManager.createQuery("select m from Member as m",Member.class)
-//                    .setFirstResult(1)  // 1번째부터 시작해서
-//                    .setMaxResults(10)  // 10개 가져와라. 페이징 처리할 때 유용 (선택)
-//                    .getResultList();
-//
-//            for(Member mem: result){
-//                System.out.println("mem.getName() = " + mem.getName());
-//            }
-            // System.out.println("findMember = " + findMember.getId());
-            // System.out.println("findMember.id = " + findMember.getName());
+            Team team = new Team();
+            team.setName("TeamA");
+            entityManager.persist(team);
 
-            // 수정
-            // Member findMember = entityManager.find(Member.class,1L);
-            // findMember.setName("helloJPA");
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team);
+            entityManager.persist(member);
 
-            // 삭제
-            // Member findMember = entityManager.find(Member.class,1L);
-            // entityManager.remove(findMember);
+            Member findMember = entityManager.find(Member.class, member.getId());
+//            Team findTeam = entityManager.find(Team.class, team.getId());
+            Team findMemberTeam = findMember.getTeam();
+
             tx.commit();        // 트랜잭션 실행
         }catch (Exception e){
             // 에러가 발생하면 롤백하기.
